@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { letterToNumber, numberToColumns } from "../column-to-int";
+import {
+  columnsToNumber,
+  letterToNumber,
+  numberToColumns,
+} from "../column-to-int";
 
 export default function App() {
   const [number, setNumber] = useState(70);
@@ -11,7 +15,15 @@ export default function App() {
     <div className="flex flex-col m-10 gap-10">
       <div className="flex flex-col w-2/3 mx-auto gap-3">
         <div className="text-center text-4xl font-bold">
-          {number} = {letters}
+          <input
+            autoFocus
+            className="w-20"
+            type="text"
+            maxLength={4}
+            value={column}
+            onChange={(e) => setNumber(columnsToNumber(e.target.value))}
+          />{" "}
+          = {number}
         </div>
         <input
           type="range"
@@ -21,7 +33,6 @@ export default function App() {
           onChange={(e) => setNumber(parseInt(e.target.value))}
         />
       </div>
-
       <div className="flex gap-6 text-center mx-auto">
         {letters.map((letter, i) => (
           <div className="flex flex-col gap-2">
